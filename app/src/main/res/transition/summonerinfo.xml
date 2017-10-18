@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="sequential">
+
+    <changeBounds android:interpolator="@android:anim/linear_interpolator"
+        android:duration="1000">
+
+        <targets>
+            <target android:targetId="@id/linear_search"/>
+            <target android:targetId="@id/summinfo_txi_search"/>
+            <target android:targetId="@id/summinfo_btn_search"/>
+        </targets>
+
+    </changeBounds>
+
+    <fade android:duration="500"
+        android:fadingMode="fade_in">
+
+        <targets>
+            <target android:targetId="@id/summinfo_img_profileicon"/>
+            <target android:targetId="@id/summinfo_txv_summfound"/>
+            <target android:targetId="@id/summinfo_txv_victories"/>
+            <target android:targetId="@id/summinfo_img_league"/>
+            <target android:targetId="@id/summinfo_txv_defeats"/>
+            <target android:targetId="@id/summinfo_rcv_topchamps"/>
+        </targets>
+
+    </fade>
+</transitionSet>

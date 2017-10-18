@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+
+        <item name="android:textColor">@color/softWhite</item>
+        <item name="android:editTextColor">@color/softWhite</item> <!-- color of the inputs in editTexts -->
+        <item name="android:textColorHint">@color/softWhite</item>
+        <item name="colorControlNormal">@color/softWhite</item> <!-- bottom line in editTexts and down arrow in spinners... -->
+
+        <!--<item name="android:buttonStyle">@style/myBtn</item>-->
+        <item name="android:spinnerStyle">@style/mySpinner</item>
+        <item name="android:dropDownListViewStyle">@style/dividerToSpinner</item> <!--Spinner's dividers-->
+
+
+    </style>
+
+    <!--Theme for Buttons
+    <style name="myBtn" parent="Widget.AppCompat.Button.Borderless">
+    </style>-->
+
+    <!--Theme for Spinners using dividers-->
+    <style name="mySpinner" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:popupBackground">@color/colorPrimaryDark</item> <!--Spinner's background-->
+    </style>
+    <style name="dividerToSpinner" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:divider">@color/softWhite</item>
+        <item name="android:dividerHeight">0.5dp</item>
+    </style>
+
+
+
+
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/champions_list"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+    <!--TODO CREAR EL STRING PARA LA EMPTY VIEW -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="Algo ha ido mal"
+        android:textSize="18sp"
+        android:id="@+id/champions_txv_empty"
+        />
+</LinearLayout>

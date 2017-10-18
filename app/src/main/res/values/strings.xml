@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">SmartLoL</string>
+    <string name="summonername">Nombre de invocador</string>
+    <string name="login">Entrar</string>
+    <string name="password">Contraseña</string>
+    <string name="partida_actual">Partida actual</string>
+    <string name="campeones">Campeones</string>
+    <string name="maestrias">Maestrías</string>
+    <string name="runas">Runas</string>
+    <string name="summoner">Invocador</string>
+    <string name="amigos">Amigos</string>
+    <string name="torneos">Torneos</string>
+    <string name="champion_mastery_points">Puntos de maestria: %s</string>
+    <string name="victories">Victorias: %s</string>
+    <string name="defeats">Derrotas: %s</string>
+
+    <string-array name="maestrias">
+        <item name="maestrias_ferocidad">Ferocidad</item>
+        <item name="maestrias_astucia">Astucia</item>
+        <item name="maestrias_valor">Valor</item>
+    </string-array>
+</resources>
