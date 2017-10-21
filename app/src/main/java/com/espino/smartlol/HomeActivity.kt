@@ -2,6 +2,7 @@ package com.espino.smartlol
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.util.Log
 import android.view.MenuItem
@@ -11,10 +12,10 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.application_toolbar.*
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback {
 
-    private lateinit var currentGameFragment: CurrentGameFragment
-    private lateinit var summInfoFragment: SummonerInfoFragment
+    private var currentGameFragment: CurrentGameFragment? = null
+    private var summInfoFragment: SummonerInfoFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,8 @@ class HomeActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction().replace(R.id.home_container, currentGameFragment, CurrentGameFragment.TAG).commit()
                     }
                     R.id.navigation_menuitem_summoner -> {
-                        summInfoFragment = SummonerInfoFragment.newInstance()
+                        if(summInfoFragment == null)
+                            summInfoFragment = SummonerInfoFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.home_container, summInfoFragment, SummonerInfoFragment.TAG).commit()
                     }
                     else->Log.v("HomeActivity:", "onNavigationItemSelected: ${it.title}")
@@ -57,5 +59,10 @@ class HomeActivity : AppCompatActivity() {
             android.R.id.home->navigation_drawerlayout.openDrawer(GravityCompat.START)
         }
         return true
+    }
+
+    override fun loadData(args: Bundle) {
+        summInfoFragment = SummonerInfoFragment.newInstance(args)
+        supportFragmentManager.beginTransaction().replace(R.id.home_container, summInfoFragment, SummonerInfoFragment.TAG).commit()
     }
 }

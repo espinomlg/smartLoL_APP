@@ -2,6 +2,8 @@ package com.espino.smartlol.interfaces
 
 import com.espino.smartlol.models.Summoner
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -25,4 +27,12 @@ interface ISmartLolService {
 
     @GET("champion/{id}")
     fun getChampion(@Path("id") championId: Int): Call<Champion>*/
+
+    companion object {
+        fun create() : ISmartLolService = Retrofit.Builder()
+                .baseUrl("http://192.168.1.10:5001/smartLoL/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ISmartLolService::class.java)
+    }
 }
