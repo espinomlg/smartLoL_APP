@@ -1,15 +1,18 @@
 package com.espino.smartlol.viewmodels
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
+import com.espino.smartlol.RealmLiveData.LiveRealmDataMultiple
 import com.espino.smartlol.models.Summoner
 import com.espino.smartlol.repositories.SummonerRepository
+import io.realm.Realm
 
 /**
  * Created by espino on 18/10/17.
  */
-class SummonerInfoViewModel(val summonerRepo: SummonerRepository = SummonerRepository()) : ViewModel(){
-    private var summoner: LiveData<Summoner>? = null
+class SummonerInfoViewModel : ViewModel(){
+    private val dbInstance = Realm.getDefaultInstance()
+    private val summonerRepo: SummonerRepository = SummonerRepository(dbInstance)
+    private var summoner: LiveRealmDataMultiple<Summoner>? = null
 
     fun init(summonerName: String){
         if(this.summoner == null) {
@@ -17,6 +20,10 @@ class SummonerInfoViewModel(val summonerRepo: SummonerRepository = SummonerRepos
         }
     }
 
-    fun getSummoner(): LiveData<Summoner>? = summoner
+    fun getSummoner(): LiveRealmDataMultiple<Summoner>? = summoner
 
+    override fun onCleared() {
+        dbInstance.close()
+        super.onCleared()
+    }
 }

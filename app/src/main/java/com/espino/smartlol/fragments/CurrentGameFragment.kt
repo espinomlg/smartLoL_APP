@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import com.espino.smartlol.R
 import kotlinx.android.synthetic.main.fragment_currentgame.*
 
-/**
- * Created by espino on 8/10/17.
- */
+
 class CurrentGameFragment : Fragment(){
 
     companion object {

@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.espino.smartlol.R
 import com.espino.smartlol.adapters.TopChampionsAdapter
+import com.espino.smartlol.daos.SummonerDao
 import com.espino.smartlol.models.Summoner
 import com.espino.smartlol.viewmodels.SummonerInfoViewModel
 import kotlinx.android.synthetic.main.fragment_summonerinfo_2.*
@@ -50,10 +51,6 @@ class SummonerInfoFragment : Fragment(){
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view: View? = null
 
@@ -65,17 +62,6 @@ class SummonerInfoFragment : Fragment(){
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        summinfo_btn_search.setOnClickListener {
-            val args = Bundle()
-            args.putString(TXI_STATE, summinfo_txi_search?.editText?.text.toString())
-            callback.loadData(args)
-        }
-
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if(arguments != null) {
@@ -84,9 +70,23 @@ class SummonerInfoFragment : Fragment(){
             viewmodel = ViewModelProviders.of(this@SummonerInfoFragment).get(SummonerInfoViewModel::class.java)
             viewmodel.init(arguments.getString(TXI_STATE))
             viewmodel.getSummoner()?.observe(this@SummonerInfoFragment, Observer {
-                bindData(it)
+                if(it?.count() == 1)
+                     bindData(it.first())
             })
         }
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        topchampsAdapter = TopChampionsAdapter()
+
+        summinfo_btn_search.setOnClickListener {
+            val args = Bundle()
+            args.putString(TXI_STATE, summinfo_txi_search?.editText?.text.toString())
+            callback.loadData(args)
+        }
+
         if(savedInstanceState != null){
             summinfo_txi_search.editText?.setText(savedInstanceState.getString(TXI_STATE))
         }
@@ -99,7 +99,7 @@ class SummonerInfoFragment : Fragment(){
         summinfo_txv_victories.text = String.format(resources.getString(R.string.victories), summoner?.leagues?.get(0)?.wins.toString())
         summinfo_img_league.setImageDrawable(resources.getDrawable(R.drawable.diamond_v))
 
-        topchampsAdapter = TopChampionsAdapter(summoner?.top_champions)
+        topchampsAdapter.topChampions = summoner?.top_champions
         summinfo_rcv_topchamps.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         summinfo_rcv_topchamps.adapter = topchampsAdapter
     }
@@ -109,38 +109,5 @@ class SummonerInfoFragment : Fragment(){
 
         outState?.putString(TXI_STATE, summinfo_txi_search.editText?.text.toString())
     }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-
-        summinfo_txi_search.editText?.setText(savedInstanceState?.getString(TXI_STATE))
-    }
-
-
-    /* fun makeTransition(){
-
-         val scene: Scene = Scene.getSceneForLayout(summinfo_rootview, R.layout.fragment_summonerinfo_2, context)
-         val transitionSet = TransitionInflater.from(context).inflateTransition(R.transition.summonerinfo)
-
-         transitionSet.addListener(object: Transition.TransitionListener {
-             override fun onTransitionEnd(transition: Transition) {
-                 isTransitionDone = true
-                 viewmodel.getSummoner()?.observe(this@SummonerInfoFragment, Observer {
-                     bindData(it)
-                 })
-
-                 summinfo_btn_search.setOnClickListener {
-                     viewmodel.init(summinfo_txi_search.editText?.text.toString())
-                 }
-             }
-
-             override fun onTransitionResume(transition: Transition) {}
-             override fun onTransitionPause(transition: Transition) {}
-             override fun onTransitionCancel(transition: Transition) {}
-             override fun onTransitionStart(transition: Transition) {}
-         })
-
-         TransitionManager.go(scene, transitionSet)
-     }*/
 
 }

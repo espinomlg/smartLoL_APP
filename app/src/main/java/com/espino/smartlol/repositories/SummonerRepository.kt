@@ -1,35 +1,36 @@
 package com.espino.smartlol.repositories
 
-import android.arch.lifecycle.MutableLiveData
-import android.util.Log
+import android.os.AsyncTask
+import com.espino.smartlol.RealmLiveData.LiveRealmDataMultiple
+import com.espino.smartlol.daos.SummonerDao
 import com.espino.smartlol.interfaces.ISmartLolService
 import com.espino.smartlol.models.Summoner
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.espino.smartlol.utils.summonerDao
+import io.realm.Realm
 
 
-class SummonerRepository{
+class SummonerRepository(dbInstance: Realm){
     private  var service: ISmartLolService = ISmartLolService.create()
+    private var summonerDao: SummonerDao = dbInstance.summonerDao()
 
-    fun getSummoner(name: String): MutableLiveData<Summoner>{
-        val summoner: MutableLiveData<Summoner> = MutableLiveData()
+    fun getSummoner(name: String): LiveRealmDataMultiple<Summoner> {
+        refreshSummoner(name)
 
-        service.getSummoner(name).enqueue(object : Callback<Summoner>{
-            override fun onFailure(call: Call<Summoner>?, t: Throwable?) {
-                Log.e("RETROFIT_ERROR", t?.localizedMessage)
-            }
-
-            override fun onResponse(call: Call<Summoner>?, response: Response<Summoner>?) {
-                if(response?.code() == 200){
-                    summoner.value = response.body()
-                }
-                else
-                    Log.e("callback_error", response?.code().toString())
-            }
-        }
-        )
-
-        return summoner
+        return summonerDao.getSummoner(name)
     }
+
+    private fun refreshSummoner(name: String) {
+        AsyncTask.execute{
+            Realm.getDefaultInstance().use {
+                if (!summonerDao.hasSummoner(name, it)) {
+                    val summoner: Summoner? = service.getSummoner(name).execute().body()
+                    if(summoner != null)
+                        summonerDao.save(summoner, it)
+                }
+            }
+
+        }
+    }
+
+
 }

@@ -1,7 +1,22 @@
 package com.espino.smartlol.models
 
-data class SummonerLeague(val league: String, val tier: String, val rank: String, val wins: Int, val losses: Int, val points: Int, val veteran: Boolean, val freshBlood: Boolean, val hotStreak: Boolean){
+import io.realm.RealmObject
+
+
+open class SummonerLeague(
+        var league: String = "",
+        var tier: String = "",
+        var rank: String = "",
+        var wins: Int = 0,
+        var losses: Int = 0,
+        var points: Int = 0,
+        var veteran: Boolean = false,
+        var freshBlood: Boolean = false,
+        var hotStreak: Boolean = false
+) : RealmObject() {
+
     override fun toString(): String {
         return "leaguename: $league || rank: $rank"
     }
+
 }

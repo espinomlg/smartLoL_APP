@@ -12,7 +12,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-class TopChampionsAdapter(var topChampions: Array<SummonerTopChampions>?) : RecyclerView.Adapter<TopChampionsAdapter.ViewHolder>(){
+class TopChampionsAdapter(var topChampions: List<SummonerTopChampions>? = null) : RecyclerView.Adapter<TopChampionsAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder{
         var v: View = LayoutInflater.from(parent?.context).inflate(R.layout.listitem_summoner_bestchampion, parent, false)

@@ -2,8 +2,9 @@ package com.espino.smartlol
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.transition.ChangeBounds
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.ViewCompat
 import android.util.Log
 import android.view.MenuItem
 import com.espino.smartlol.fragments.CurrentGameFragment
@@ -58,11 +59,27 @@ class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback
         when(item?.itemId){
             android.R.id.home->navigation_drawerlayout.openDrawer(GravityCompat.START)
         }
+
         return true
     }
 
+    //TODO transaction doesn't work
     override fun loadData(args: Bundle) {
+        ViewCompat.setTransitionName(findViewById(R.id.linear_search), "layout_search")
+        ViewCompat.setTransitionName(findViewById(R.id.summinfo_txi_search), "txi_search")
+        ViewCompat.setTransitionName(findViewById(R.id.summinfo_btn_search), "btn_search")
+
         summInfoFragment = SummonerInfoFragment.newInstance(args)
-        supportFragmentManager.beginTransaction().replace(R.id.home_container, summInfoFragment, SummonerInfoFragment.TAG).commit()
+        summInfoFragment?.sharedElementEnterTransition = ChangeBounds()
+
+        supportFragmentManager.beginTransaction()
+                .addSharedElement(findViewById(R.id.linear_search), "layout_search")
+                .addSharedElement(findViewById(R.id.summinfo_txi_search), "txi_search")
+                .addSharedElement(findViewById(R.id.summinfo_btn_search), "btn_search")
+                .replace(R.id.home_container, summInfoFragment, SummonerInfoFragment.TAG)
+                .commit()
     }
+
+
+
 }

@@ -1,7 +1,15 @@
 package com.espino.smartlol.models
 
+import io.realm.RealmObject
 
-data class SummonerTopChampions(val name: String, val title: String, val img_url: String, val lvl: Int, val points: Int){
+
+open class SummonerTopChampions(
+        var name: String = "",
+        var title: String = "",
+        var img_url: String = "",
+        var lvl: Int = 0,
+        var points: Int = 0
+) : RealmObject() {
     override fun toString(): String {
         return "champname: $name || title: $title"
     }
