@@ -1,6 +1,6 @@
 package com.espino.smartlol.daos
 
-import com.espino.smartlol.RealmLiveData.LiveRealmDataMultiple
+import com.espino.smartlol.RealmLiveData.LiveRealmData
 import com.espino.smartlol.models.Summoner
 import com.espino.smartlol.utils.asLiveData
 import io.realm.Case
@@ -12,7 +12,7 @@ class SummonerDao(private var dbInstance: Realm) {
 
     private val FRESH_TIMEOUT = 1 //day
 
-    fun getSummoner(name: String): LiveRealmDataMultiple<Summoner> {
+    fun getSummoner(name: String): LiveRealmData<Summoner> {
         val results = dbInstance.where(Summoner::class.java)
                 .equalTo("name", name, Case.INSENSITIVE)
                 .findAllAsync()

@@ -1,7 +1,7 @@
 package com.espino.smartlol.repositories
 
 import android.os.AsyncTask
-import com.espino.smartlol.RealmLiveData.LiveRealmDataMultiple
+import com.espino.smartlol.RealmLiveData.LiveRealmData
 import com.espino.smartlol.daos.SummonerDao
 import com.espino.smartlol.interfaces.ISmartLolService
 import com.espino.smartlol.models.Summoner
@@ -13,7 +13,7 @@ class SummonerRepository(dbInstance: Realm){
     private  var service: ISmartLolService = ISmartLolService.create()
     private var summonerDao: SummonerDao = dbInstance.summonerDao()
 
-    fun getSummoner(name: String): LiveRealmDataMultiple<Summoner> {
+    fun getSummoner(name: String): LiveRealmData<Summoner> {
         refreshSummoner(name)
 
         return summonerDao.getSummoner(name)
