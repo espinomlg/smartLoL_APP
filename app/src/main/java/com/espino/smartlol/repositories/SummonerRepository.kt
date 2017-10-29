@@ -34,7 +34,7 @@ class SummonerRepository(dbInstance: Realm) {
                 Realm.getDefaultInstance().use {
                     if (!summonerDao.hasSummoner(name, it)) {
                         try {
-                            val response = service.getSummoner(name).execute()
+                            val response = service.getSummoner(name, "euw1", "2").execute()
                             if (response.code() == 200) {
                                 summonerDao.save(response.body()!!, it)
                             } else {

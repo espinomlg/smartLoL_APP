@@ -6,11 +6,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ISmartLolService {
 
     @GET("summoner/{name}")
-    fun getSummoner(@Path("name") name: String): Call<Summoner>
+    fun getSummoner(@Path("name") name: String, @Query("platform") platform: String, @Query("language") language: String): Call<Summoner>
 
     /*
     @GET("recentgames/{account_id}")
