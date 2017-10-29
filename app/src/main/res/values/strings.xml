@@ -1,22 +1,33 @@
 <resources>
+    <!-- START APPLICATION STRINGS -->
     <string name="app_name">SmartLoL</string>
+    <string name="btn_ok">OK</string><!--TODO CAMBIAR-->
+    <!-- END APPLICATION STRINGS -->
+
+    <!-- START LOL RELATED STRINGS -->
     <string name="summonername">Nombre de invocador</string>
-    <string name="login">Entrar</string>
-    <string name="password">Contraseña</string>
-    <string name="partida_actual">Partida actual</string>
-    <string name="campeones">Campeones</string>
-    <string name="maestrias">Maestrías</string>
-    <string name="runas">Runas</string>
+    <string name="current_game">Partida actual</string>
+    <string name="champions">Campeones</string>
+    <string name="masteries">Maestrías</string>
+    <string name="runes">Runas</string>
     <string name="summoner">Invocador</string>
-    <string name="amigos">Amigos</string>
-    <string name="torneos">Torneos</string>
     <string name="champion_mastery_points">Puntos de maestria: %s</string>
     <string name="victories">Victorias: %s</string>
     <string name="defeats">Derrotas: %s</string>
+    <!-- END LOL RELATED STRINGS -->
+
+    <!-- START NETWORK ERROR RESPONSE -->
+    <string name="networK_error_response_403_title">No autorizado</string>
+    <string name="networK_error_response_403_message">Actualiza la key imbécil</string><!--TODO mensaje serio cuando la app este lista-->
+    <string name="networK_error_response_1_title">No hay conexión</string>
+    <string name="networK_error_response_1_message">Comprueba tu conexión a internet y vuelve a intentarlo</string>
+    <string name="networK_error_response_404_title">No encontrado</string>
+    <string name="networK_error_response_404_message">No se han encontrado datos</string>
+    <!-- END NETWORK ERROR RESPONSE -->
 
     <string-array name="maestrias">
-        <item name="maestrias_ferocidad">Ferocidad</item>
-        <item name="maestrias_astucia">Astucia</item>
-        <item name="maestrias_valor">Valor</item>
+        <item name="masteries_ferocity">Ferocidad</item>
+        <item name="masteries_cunning">Astucia</item>
+        <item name="masteries_resolve">Valor</item>
     </string-array>
 </resources>

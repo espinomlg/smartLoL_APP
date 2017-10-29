@@ -1,4 +1,4 @@
-package com.espino.smartlol.interfaces
+package com.espino.smartlol.webservice
 
 import com.espino.smartlol.models.Summoner
 import retrofit2.Call

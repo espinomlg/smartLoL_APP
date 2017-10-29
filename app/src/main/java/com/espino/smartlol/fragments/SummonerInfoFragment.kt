@@ -1,5 +1,6 @@
 package com.espino.smartlol.fragments
 
+
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -13,8 +14,8 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.espino.smartlol.R
 import com.espino.smartlol.adapters.TopChampionsAdapter
-import com.espino.smartlol.daos.SummonerDao
 import com.espino.smartlol.models.Summoner
+import com.espino.smartlol.utils.showNetworkErrorDialog
 import com.espino.smartlol.viewmodels.SummonerInfoViewModel
 import kotlinx.android.synthetic.main.fragment_summonerinfo_2.*
 
@@ -27,7 +28,6 @@ class SummonerInfoFragment : Fragment(){
 
     private lateinit var topchampsAdapter: TopChampionsAdapter
     private lateinit var viewmodel: SummonerInfoViewModel
-
     private lateinit var callback: IFragmentCallback
 
     companion object {
@@ -65,13 +65,25 @@ class SummonerInfoFragment : Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if(arguments != null) {
+            summinfo_progressbar.visibility = View.VISIBLE
             summinfo_txi_search?.editText?.setText(arguments.getString(TXI_STATE))
 
             viewmodel = ViewModelProviders.of(this@SummonerInfoFragment).get(SummonerInfoViewModel::class.java)
             viewmodel.init(arguments.getString(TXI_STATE))
             viewmodel.getSummoner()?.observe(this@SummonerInfoFragment, Observer {
-                if(it?.count() == 1)
-                     bindData(it.first())
+                if(it?.count() == 1){
+                    summinfo_progressbar.visibility = View.GONE
+                    bindData(it.first())
+                }
+
+            })
+            viewmodel.getNetworkError()?.observe(this@SummonerInfoFragment, Observer {
+                if(it != null){
+                    summinfo_progressbar.visibility = View.GONE
+                    showNetworkErrorDialog(it)
+                }
+
+                Log.e("NETWORK-RESPONSE", "${it?.statusCode} \n${it?.headers.toString()} \n${it?.message}")//todo eliminar cuando se añadan los headers de la api de riot a los nuestros
             })
         }
     }
