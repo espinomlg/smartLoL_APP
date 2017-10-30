@@ -14,7 +14,7 @@ class SummonerRepository(dbInstance: Realm): AbstractRepository<Summoner>() {
     override val dao: SummonerDao = dbInstance.summonerDao()
 
     override fun getData(identifier: String): LiveRealmData<Summoner> {
-        refreshData(identifier)
+        refreshDataInBackground(identifier)
 
         return dao.getData(identifier)
     }

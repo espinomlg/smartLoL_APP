@@ -5,8 +5,11 @@ import io.realm.Realm
 import io.realm.RealmObject
 
 
-abstract class AbstractDao<T : RealmObject>(private var dbinstance: Realm){
+abstract class AbstractDao<T : RealmObject>{
+    protected abstract val dbInstance: Realm
+    protected abstract val FRESH_TIMEOUT: Int
+
     abstract fun getData(identifier: String): LiveRealmData<T>
-    abstract fun save(element: T, dbinstance: Realm)
+    abstract fun save(element: T, dbInstance: Realm)
     abstract fun hasElement(identifier: String, dbInstance: Realm): Boolean
 }

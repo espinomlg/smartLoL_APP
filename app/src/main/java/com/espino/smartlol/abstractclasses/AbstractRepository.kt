@@ -14,8 +14,8 @@ import org.jetbrains.anko.coroutines.experimental.bg
 import java.io.IOException
 
 abstract class AbstractRepository<T: RealmObject>{
-    protected val service: ISmartLolService = ISmartLolService.create()
     protected abstract val dao: AbstractDao<T>
+    protected val service: ISmartLolService = ISmartLolService.create()
     val networkError: MutableLiveData<NetworkErrorResponse> = MutableLiveData()
 
     abstract fun getData(identifier: String): LiveRealmData<T>

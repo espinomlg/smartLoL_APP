@@ -9,9 +9,9 @@ import io.realm.Realm
 import java.util.*
 
 
-class SummonerDao(private var dbInstance: Realm) : AbstractDao<Summoner>(dbInstance) {
+class SummonerDao(override var dbInstance: Realm) : AbstractDao<Summoner>() {
 
-    private val FRESH_TIMEOUT = 1 //day
+    override val FRESH_TIMEOUT = 1 //day
 
     override fun getData(identifier: String): LiveRealmData<Summoner> {
         return dbInstance.where(Summoner::class.java)
