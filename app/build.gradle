@@ -51,5 +51,7 @@ dependencies {
         /*VIEWMODEL*/
     implementation 'android.arch.lifecycle:extensions:1.0.0-alpha9-1'
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha9-1"
+    /*ANKO COROUTINES*/
+    compile "org.jetbrains.anko:anko-coroutines:0.10.2"
 
 }

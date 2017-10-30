@@ -1,6 +1,7 @@
 package com.espino.smartlol.daos
 
 import com.espino.smartlol.RealmLiveData.LiveRealmData
+import com.espino.smartlol.abstractclasses.AbstractDao
 import com.espino.smartlol.models.Summoner
 import com.espino.smartlol.utils.asLiveData
 import io.realm.Case
@@ -8,35 +9,33 @@ import io.realm.Realm
 import java.util.*
 
 
-class SummonerDao(private var dbInstance: Realm) {
+class SummonerDao(private var dbInstance: Realm) : AbstractDao<Summoner>(dbInstance) {
 
     private val FRESH_TIMEOUT = 1 //day
 
-    fun getSummoner(name: String): LiveRealmData<Summoner> {
-        val results = dbInstance.where(Summoner::class.java)
-                .equalTo("name", name, Case.INSENSITIVE)
+    override fun getData(identifier: String): LiveRealmData<Summoner> {
+        return dbInstance.where(Summoner::class.java)
+                .equalTo("name", identifier, Case.INSENSITIVE)
                 .findAllAsync()
                 .asLiveData()
-
-        return results
     }
 
-    fun save(summoner: Summoner, dbInstance: Realm) {
+    override fun save(element: Summoner, dbInstance: Realm) {
         val calendar: Calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_MONTH, FRESH_TIMEOUT)
-        summoner.validUntil = calendar.timeInMillis
+        element.validUntil = calendar.timeInMillis
 
         dbInstance.executeTransactionAsync {
-            it.copyToRealm(summoner)
+            it.copyToRealm(element)
         }
 
     }
 
-    fun hasSummoner(name: String, dbInstance: Realm): Boolean {
+    override fun hasElement(identifier: String, dbInstance: Realm): Boolean {
         var isValidData = false
 
         val summoner: Summoner? = dbInstance.where(Summoner::class.java)
-                .equalTo("name", name, Case.INSENSITIVE)
+                .equalTo("name", identifier, Case.INSENSITIVE)
                 .findFirst()
 
         if (summoner != null) {

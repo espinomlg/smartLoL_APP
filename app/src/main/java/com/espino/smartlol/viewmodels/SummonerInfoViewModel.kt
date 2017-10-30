@@ -17,10 +17,10 @@ class SummonerInfoViewModel : ViewModel(){
 
     fun init(summonerName: String){
         if(this.summoner == null) {
-            this.summoner = summonerRepo.getSummoner(summonerName)
+            this.summoner = summonerRepo.getData(summonerName)
         }
         if(networkError == null){
-            this.networkError = summonerRepo.getNetworkError()
+            this.networkError = summonerRepo.networkError
         }
     }
 
