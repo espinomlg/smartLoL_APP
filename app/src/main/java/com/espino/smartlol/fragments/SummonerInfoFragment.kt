@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.text.InputFilter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -70,14 +71,14 @@ class SummonerInfoFragment : Fragment(){
 
             viewmodel = ViewModelProviders.of(this@SummonerInfoFragment).get(SummonerInfoViewModel::class.java)
             viewmodel.init(arguments.getString(TXI_STATE))
-            viewmodel.getSummoner()?.observe(this@SummonerInfoFragment, Observer {
+            viewmodel.data?.observe(this@SummonerInfoFragment, Observer {
                 if(it?.count() == 1){
                     summinfo_progressbar.visibility = View.GONE
                     bindData(it.first())
                 }
 
             })
-            viewmodel.getNetworkError()?.observe(this@SummonerInfoFragment, Observer {
+            viewmodel.networkError?.observe(this@SummonerInfoFragment, Observer {
                 if(it != null){
                     summinfo_progressbar.visibility = View.GONE
                     showNetworkErrorDialog(it)
@@ -102,6 +103,7 @@ class SummonerInfoFragment : Fragment(){
         if(savedInstanceState != null){
             summinfo_txi_search.editText?.setText(savedInstanceState.getString(TXI_STATE))
         }
+        //todo control text inout layout cannot have \n
     }
 
     private fun bindData(summoner: Summoner?){

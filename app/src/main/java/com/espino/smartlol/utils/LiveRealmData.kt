@@ -1,4 +1,4 @@
-package com.espino.smartlol.RealmLiveData
+package com.espino.smartlol.utils
 
 import android.arch.lifecycle.LiveData
 import io.realm.RealmChangeListener

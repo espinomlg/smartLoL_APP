@@ -1,7 +1,6 @@
 package com.espino.smartlol.daos
 
-import com.espino.smartlol.RealmLiveData.LiveRealmData
-import com.espino.smartlol.abstractclasses.AbstractDao
+import com.espino.smartlol.utils.LiveRealmData
 import com.espino.smartlol.models.Summoner
 import com.espino.smartlol.utils.asLiveData
 import io.realm.Case

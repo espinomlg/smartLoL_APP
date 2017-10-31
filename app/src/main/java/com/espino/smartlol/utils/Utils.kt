@@ -4,7 +4,6 @@ package com.espino.smartlol.utils
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import com.espino.smartlol.R
-import com.espino.smartlol.RealmLiveData.LiveRealmData
 import com.espino.smartlol.daos.SummonerDao
 import com.espino.smartlol.webservice.NetworkErrorResponse
 import io.realm.Realm
@@ -33,11 +32,14 @@ fun Fragment.showNetworkErrorDialog(errorResponse: NetworkErrorResponse){
         }
     }
 
-    val dialog: AlertDialog = AlertDialog.Builder(context)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(context.resources.getString(R.string.btn_ok), null)
-            .create()
+    if(title != "" && message != ""){
+        val dialog: AlertDialog = AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(context.resources.getString(R.string.btn_ok), null)
+                .create()
 
-    dialog.show()
+        dialog.show()
+    }
+
 }

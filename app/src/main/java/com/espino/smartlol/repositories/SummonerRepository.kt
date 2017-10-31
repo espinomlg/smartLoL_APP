@@ -1,7 +1,5 @@
 package com.espino.smartlol.repositories
 
-import com.espino.smartlol.RealmLiveData.LiveRealmData
-import com.espino.smartlol.abstractclasses.AbstractRepository
 import com.espino.smartlol.daos.SummonerDao
 import com.espino.smartlol.models.Summoner
 import com.espino.smartlol.utils.summonerDao
@@ -12,12 +10,6 @@ import java.io.IOException
 
 class SummonerRepository(dbInstance: Realm): AbstractRepository<Summoner>() {
     override val dao: SummonerDao = dbInstance.summonerDao()
-
-    override fun getData(identifier: String): LiveRealmData<Summoner> {
-        refreshDataInBackground(identifier)
-
-        return dao.getData(identifier)
-    }
 
      override fun refreshData(identifier: String): NetworkErrorResponse?{
         var errorResponse: NetworkErrorResponse? = null
