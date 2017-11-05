@@ -11,6 +11,6 @@ class SummonerInfoViewModel : AbstractViewModel<Summoner>(){
     override val repository: SummonerRepository = SummonerRepository(dbInstance)
     override var data: LiveRealmData<Summoner>? = null
 
-    fun validateSummonerName(name: String): Boolean = name.length in 3..16
+    fun validateSummonerName(name: String): Boolean = name.length in 3..16//todo it cannot have word "riot" in it
 
 }

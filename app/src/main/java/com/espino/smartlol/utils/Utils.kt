@@ -1,16 +1,22 @@
 @file:JvmName("Utils")
 package com.espino.smartlol.utils
 
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import com.espino.smartlol.R
+import com.espino.smartlol.daos.ChampionListDao
 import com.espino.smartlol.daos.SummonerDao
 import com.espino.smartlol.webservice.NetworkErrorResponse
 import io.realm.Realm
 import io.realm.RealmObject
 import io.realm.RealmResults
+import java.util.*
+
 
 fun Realm.summonerDao() = SummonerDao(this)
+fun Realm.championListDao() = ChampionListDao(this)
 
 fun<T: RealmObject> RealmResults<T>.asLiveData() = LiveRealmData(this)
 
@@ -36,7 +42,7 @@ fun Fragment.showNetworkErrorDialog(errorResponse: NetworkErrorResponse){
         val dialog: AlertDialog = AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(context.resources.getString(R.string.btn_ok), null)
+                .setPositiveButton(context.resources.getString(android.R.string.ok), null)
                 .create()
 
         dialog.show()
@@ -47,8 +53,25 @@ fun Fragment.showActionlessDialog(title: String, message: String){
     val dialog : AlertDialog = AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton(context.resources.getString(R.string.btn_ok), null)
+            .setPositiveButton(android.R.string.ok, null)
             .create()
 
     dialog.show()
+}
+
+fun Fragment.getLanguage() : Int{
+    val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
+    return preferences.getInt("language", getLanguageId())
+}
+
+private fun getLanguageId() : Int{
+    return when (Locale.getDefault().language) {
+        "en" -> 1
+        "es" -> 2
+        "it" -> 3
+        "fr" -> 4
+        "de" -> 5
+        else -> 1
+    }
 }

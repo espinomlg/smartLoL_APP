@@ -21,6 +21,10 @@
         <item android:title="@string/summoner"
             android:icon="@mipmap/ic_launcher"
             android:id="@+id/navigation_menuitem_summoner"/>
-
+    </group>
+    <group>
+        <item android:title="@string/settings"
+            android:icon="@mipmap/ic_launcher"
+            android:id="@+id/navigation_menuitem_settings"/>
     </group>
 </menu>

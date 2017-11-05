@@ -1,5 +1,7 @@
 package com.espino.smartlol.webservice
 
+import com.espino.smartlol.models.ChampionList
+import com.espino.smartlol.models.ChampionListItem
 import com.espino.smartlol.models.Summoner
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -11,7 +13,10 @@ import retrofit2.http.Query
 interface ISmartLolService {
 
     @GET("summoner/{name}")
-    fun getSummoner(@Path("name") name: String, @Query("platform") platform: String, @Query("language") language: String): Call<Summoner>
+    fun getSummoner(@Path("name") name: String, @Query("platform") platform: String, @Query("language") language: Int): Call<Summoner>
+
+    @GET("champions/")
+    fun getAllChampions(): Call<ChampionList>
 
     /*
     @GET("recentgames/{account_id}")

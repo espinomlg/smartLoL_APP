@@ -2,14 +2,16 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_summinfo_withdata">
 
     <ProgressBar
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/summinfo_progressbar"/>
 
     <LinearLayout
@@ -64,6 +66,7 @@
         android:layout_below="@id/linear_search"
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
+        android:visibility="invisible"
         android:id="@+id/summinfo_img_profileicon" />
 
     <TextView
@@ -74,6 +77,7 @@
         android:layout_toRightOf="@id/summinfo_img_profileicon"
         android:layout_alignBaseline="@id/summinfo_img_profileicon"
         android:layout_marginTop="15dp"
+        android:visibility="invisible"
         android:id="@+id/summinfo_txv_summfound"
         tools:text="EspinoKiller"/>
 
@@ -86,6 +90,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginRight="5dp"
         android:layout_marginEnd="5dp"
+        android:visibility="invisible"
         android:id="@+id/summinfo_txv_victories"
         tools:text="Victorias: 100"/>
 
@@ -99,6 +104,7 @@
         android:layout_below="@id/linear_search"
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
+        android:visibility="invisible"
         android:id="@+id/summinfo_img_league" />
 
     <TextView
@@ -109,12 +115,14 @@
         android:layout_toRightOf="@id/summinfo_img_league"
         android:layout_marginEnd="5dp"
         android:id="@+id/summinfo_txv_defeats"
+        android:visibility="invisible"
         tools:text="Derrotas: 0"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:visibility="invisible"
         android:id="@+id/summinfo_rcv_topchamps"/>
 
 </RelativeLayout>

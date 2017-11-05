@@ -15,6 +15,7 @@ class SmartLolApplication : Application(){
                 .schemaVersion(1)
                 .build()
 
+        //Realm.deleteRealm(config)
         Realm.setDefaultConfiguration(config)
     }
 }

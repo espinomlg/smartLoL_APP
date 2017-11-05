@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.espino.smartlol.R
 import com.espino.smartlol.adapters.TopChampionsAdapter
 import com.espino.smartlol.models.Summoner
+import com.espino.smartlol.utils.getLanguage
 import com.espino.smartlol.utils.showActionlessDialog
 import com.espino.smartlol.utils.showNetworkErrorDialog
 import com.espino.smartlol.viewmodels.SummonerInfoViewModel
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_summonerinfo_2.*
 
 
 class SummonerInfoFragment : Fragment(){
-
+//todo control orientation or modify layout
     interface IFragmentCallback{
         fun loadData(args: Bundle)
     }
@@ -68,15 +69,15 @@ class SummonerInfoFragment : Fragment(){
         super.onActivityCreated(savedInstanceState)
         viewmodel = ViewModelProviders.of(this@SummonerInfoFragment).get(SummonerInfoViewModel::class.java)
         if(arguments != null) {
-            summinfo_progressbar.visibility = View.VISIBLE
             summinfo_txi_search?.editText?.setText(arguments.getString(TXI_STATE))
             summinfo_spn_regions.setSelection(arguments.getInt(SPN_INDEX))
 
-            viewmodel.init(arguments.getString(TXI_STATE), summinfo_spn_regions.getSelectedRegion())
+            viewmodel.init(arguments.getString(TXI_STATE), summinfo_spn_regions.getSelectedRegion(), getLanguage())
             viewmodel.data?.observe(this@SummonerInfoFragment, Observer {
                 if(it?.count() == 1){
                     summinfo_progressbar.visibility = View.GONE
                     bindData(it.first())
+                    changeContentVisibility(View.VISIBLE)
                 }
 
             })
@@ -100,7 +101,7 @@ class SummonerInfoFragment : Fragment(){
             val summonerName: String = summinfo_txi_search?.editText?.text.toString()
             if(viewmodel.validateSummonerName(summonerName)){
                 val args = Bundle()
-                args.putString(TXI_STATE, summinfo_txi_search?.editText?.text.toString())
+                args.putString(TXI_STATE,summonerName)
                 args.putInt(SPN_INDEX, summinfo_spn_regions.selectedItemPosition)
                 callback.loadData(args)
             }else{
@@ -115,6 +116,12 @@ class SummonerInfoFragment : Fragment(){
         //todo control text input layout cannot have \n
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+
+        outState?.putString(TXI_STATE, summinfo_txi_search.editText?.text.toString())
+    }
+
     private fun bindData(summoner: Summoner?){
         Glide.with(context).load(summoner?.icon).into(summinfo_img_profileicon)
         summinfo_txv_defeats.text = String.format(resources.getString(R.string.defeats),  summoner?.leagues?.get(0)?.losses.toString())
@@ -127,10 +134,14 @@ class SummonerInfoFragment : Fragment(){
         summinfo_rcv_topchamps.adapter = topchampsAdapter
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
+    private fun changeContentVisibility(visibility: Int){
+        summinfo_img_profileicon.visibility = visibility
+        summinfo_txv_defeats.visibility = visibility
+        summinfo_txv_summfound.visibility = visibility
+        summinfo_txv_victories.visibility = visibility
+        summinfo_img_league.visibility = visibility
 
-        outState?.putString(TXI_STATE, summinfo_txi_search.editText?.text.toString())
+        summinfo_rcv_topchamps.visibility = visibility
     }
 
 }

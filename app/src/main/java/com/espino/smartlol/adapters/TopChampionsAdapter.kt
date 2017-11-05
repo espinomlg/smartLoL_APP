@@ -15,7 +15,7 @@ import org.json.JSONObject
 class TopChampionsAdapter(var topChampions: List<SummonerTopChampions>? = null) : RecyclerView.Adapter<TopChampionsAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder{
-        var v: View = LayoutInflater.from(parent?.context).inflate(R.layout.listitem_summoner_bestchampion, parent, false)
+        val v: View = LayoutInflater.from(parent?.context).inflate(R.layout.listitem_summoner_bestchampion, parent, false)
         return ViewHolder(v)
     }
 
@@ -26,7 +26,7 @@ class TopChampionsAdapter(var topChampions: List<SummonerTopChampions>? = null) 
     override fun getItemCount(): Int = topChampions?.size ?: 0
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(item: SummonerTopChampions?) = with(itemView){
             itembestchampion_txv_name.text = item?.name
             itembestchampion_txv_title.text = item?.title

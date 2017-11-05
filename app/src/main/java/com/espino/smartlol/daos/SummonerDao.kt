@@ -12,7 +12,7 @@ class SummonerDao(override var dbInstance: Realm) : AbstractDao<Summoner>() {
 
     override val FRESH_TIMEOUT = 1 //day
 
-    override fun getData(identifier: String, region: String?): LiveRealmData<Summoner> {
+    override fun getData(identifier: String?, region: String?): LiveRealmData<Summoner> {
         return dbInstance.where(Summoner::class.java)
                 .equalTo("name", identifier, Case.INSENSITIVE)
                 .equalTo("region", region!!)
@@ -26,12 +26,12 @@ class SummonerDao(override var dbInstance: Realm) : AbstractDao<Summoner>() {
         element.validUntil = calendar.timeInMillis
 
         dbInstance.executeTransactionAsync {
-            it.copyToRealm(element)
+            it.copyToRealmOrUpdate(element)
         }
 
     }
 
-    override fun hasElement(identifier: String, dbInstance: Realm, region: String?): Boolean {
+    override fun hasElement(dbInstance: Realm, identifier: String?, region: String?): Boolean {
         var isValidData = false
 
         val summoner: Summoner? = dbInstance.where(Summoner::class.java)

@@ -1,7 +1,7 @@
 <resources>
     <!-- START APPLICATION STRINGS -->
     <string name="app_name">SmartLoL</string>
-    <string name="btn_ok">OK</string><!--TODO CAMBIAR-->
+    <string name="settings">Configuración</string>
 
     <string-array name="masteries_trees">
         <item name="masteries_ferocity">Ferocidad</item>
@@ -35,5 +35,23 @@
     <string name="summname_err_title">Nombre no válido</string>
     <string name="summname_err_message">El nombre introducido no es un nombre de invocador válido</string>
     <!--END DATA VALIDATION ERRORS -->
+
+    <!-- START PREFERENCES STRINGS -->
+    <string name="preferences_language">Idioma</string>
+    <string-array name="preferences_languages_entryValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="preferences_languages_entries">
+        <item>Inglés</item>
+        <item>Español</item>
+        <item>Italiano</item>
+        <item>Francés</item>
+        <item>Alemán</item>
+    </string-array>
+    <!-- END PREFERENCES STRINGS -->
 
 </resources>

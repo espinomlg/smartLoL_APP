@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewCompat
 import android.util.Log
 import android.view.MenuItem
+import com.espino.smartlol.fragments.ChampionListFragment
 import com.espino.smartlol.fragments.CurrentGameFragment
 import com.espino.smartlol.fragments.SummonerInfoFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -17,6 +18,7 @@ class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback
 
     private var currentGameFragment: CurrentGameFragment? = null
     private var summInfoFragment: SummonerInfoFragment? = null
+    private var championListFragment: ChampionListFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,12 @@ class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback
                         if(summInfoFragment == null)
                             summInfoFragment = SummonerInfoFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.home_container, summInfoFragment, SummonerInfoFragment.TAG).commit()
+                    }
+                    R.id.navigation_menuitem_champions -> {
+                        if(championListFragment == null){
+                            championListFragment = ChampionListFragment.newInstance()
+                        }
+                        supportFragmentManager.beginTransaction().replace(R.id.home_container, championListFragment, ChampionListFragment.TAG).commit()
                     }
                     else->Log.v("HomeActivity:", "onNavigationItemSelected: ${it.title}")
                 }
