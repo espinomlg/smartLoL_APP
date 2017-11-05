@@ -9,8 +9,8 @@ abstract class AbstractDao<T : RealmObject>{
     protected abstract val dbInstance: Realm
     protected abstract val FRESH_TIMEOUT: Int
 
-    abstract fun getData(identifier: String): LiveRealmData<T>
+    abstract fun getData(identifier: String, region: String? = null): LiveRealmData<T>
     abstract fun save(element: T, dbInstance: Realm)
-    abstract fun hasElement(identifier: String, dbInstance: Realm): Boolean
+    abstract fun hasElement(identifier: String, dbInstance: Realm, region: String? = null): Boolean
 
 }

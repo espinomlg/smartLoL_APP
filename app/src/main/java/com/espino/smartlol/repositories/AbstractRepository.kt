@@ -18,17 +18,17 @@ abstract class AbstractRepository<T: RealmObject>{
     protected val service: ISmartLolService = ISmartLolService.create()
     val networkError: MutableLiveData<NetworkErrorResponse> = MutableLiveData()
 
-    fun getData(identifier: String): LiveRealmData<T>{
-        refreshDataInBackground(identifier)
+    fun getData(identifier: String, region: String? = null): LiveRealmData<T>{
+        refreshDataInBackground(identifier, region)
 
-        return  dao.getData(identifier)
+        return  dao.getData(identifier, region)
     }
 
-    protected fun refreshDataInBackground(identifier: String){
+    protected fun refreshDataInBackground(identifier: String, region: String? = null){
         val ref: Ref<AbstractRepository<T>> = this.asReference()
         async(UI){
             val result = bg {
-                refreshData(identifier)
+                refreshData(identifier, region)
             }
 
             val errorResponse: NetworkErrorResponse? = result.await()
@@ -37,6 +37,6 @@ abstract class AbstractRepository<T: RealmObject>{
         }
     }
 
-    protected abstract fun refreshData(identifier: String): NetworkErrorResponse?
+    protected abstract fun refreshData(identifier: String, region: String? = null): NetworkErrorResponse?
 
 }

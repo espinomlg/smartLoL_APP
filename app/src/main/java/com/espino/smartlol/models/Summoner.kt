@@ -11,6 +11,7 @@ open class Summoner(
         var accountId: Int = 0,
         var name: String = "",
         var icon: String = "",
+        var region: String = "",
         var validUntil: Long = 0,
 
         var leagues: RealmList<SummonerLeague> = RealmList(),

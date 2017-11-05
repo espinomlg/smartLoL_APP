@@ -7,7 +7,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.text.InputFilter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.espino.smartlol.R
 import com.espino.smartlol.adapters.TopChampionsAdapter
 import com.espino.smartlol.models.Summoner
+import com.espino.smartlol.utils.showActionlessDialog
 import com.espino.smartlol.utils.showNetworkErrorDialog
 import com.espino.smartlol.viewmodels.SummonerInfoViewModel
 import kotlinx.android.synthetic.main.fragment_summonerinfo_2.*
@@ -34,6 +34,7 @@ class SummonerInfoFragment : Fragment(){
     companion object {
         val TAG = "summoner_info"
         val TXI_STATE = "txi_state"
+        val SPN_INDEX = "spn_index"
 
         fun newInstance(args: Bundle? = null): SummonerInfoFragment{
             val fragment = SummonerInfoFragment()
@@ -65,12 +66,13 @@ class SummonerInfoFragment : Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewmodel = ViewModelProviders.of(this@SummonerInfoFragment).get(SummonerInfoViewModel::class.java)
         if(arguments != null) {
             summinfo_progressbar.visibility = View.VISIBLE
             summinfo_txi_search?.editText?.setText(arguments.getString(TXI_STATE))
+            summinfo_spn_regions.setSelection(arguments.getInt(SPN_INDEX))
 
-            viewmodel = ViewModelProviders.of(this@SummonerInfoFragment).get(SummonerInfoViewModel::class.java)
-            viewmodel.init(arguments.getString(TXI_STATE))
+            viewmodel.init(arguments.getString(TXI_STATE), summinfo_spn_regions.getSelectedRegion())
             viewmodel.data?.observe(this@SummonerInfoFragment, Observer {
                 if(it?.count() == 1){
                     summinfo_progressbar.visibility = View.GONE
@@ -95,15 +97,22 @@ class SummonerInfoFragment : Fragment(){
         topchampsAdapter = TopChampionsAdapter()
 
         summinfo_btn_search.setOnClickListener {
-            val args = Bundle()
-            args.putString(TXI_STATE, summinfo_txi_search?.editText?.text.toString())
-            callback.loadData(args)
+            val summonerName: String = summinfo_txi_search?.editText?.text.toString()
+            if(viewmodel.validateSummonerName(summonerName)){
+                val args = Bundle()
+                args.putString(TXI_STATE, summinfo_txi_search?.editText?.text.toString())
+                args.putInt(SPN_INDEX, summinfo_spn_regions.selectedItemPosition)
+                callback.loadData(args)
+            }else{
+                showActionlessDialog(context.resources.getString(R.string.summname_err_title), context.resources.getString(R.string.summname_err_message))
+            }
+
         }
 
         if(savedInstanceState != null){
             summinfo_txi_search.editText?.setText(savedInstanceState.getString(TXI_STATE))
         }
-        //todo control text inout layout cannot have \n
+        //todo control text input layout cannot have \n
     }
 
     private fun bindData(summoner: Summoner?){

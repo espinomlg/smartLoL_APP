@@ -32,17 +32,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:inputType="text"
                 tools:text="Espinokiller" />
 
         </android.support.design.widget.TextInputLayout>
 
-        <Button
+        <com.espino.smartlol.customviews.RegionsSpinner
+            android:id="@+id/summinfo_spn_regions"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
             android:layout_gravity="center_vertical"
-            android:text="Buscar"
-            android:id="@+id/summinfo_btn_search"/>
+            android:layout_weight="0.9" />
+
+        <ImageButton
+            android:id="@+id/summinfo_btn_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.4"
+            android:src="@android:drawable/ic_menu_search"/>
 
     </LinearLayout>
 

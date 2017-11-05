@@ -41,5 +41,14 @@ fun Fragment.showNetworkErrorDialog(errorResponse: NetworkErrorResponse){
 
         dialog.show()
     }
+}
 
+fun Fragment.showActionlessDialog(title: String, message: String){
+    val dialog : AlertDialog = AlertDialog.Builder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(context.resources.getString(R.string.btn_ok), null)
+            .create()
+
+    dialog.show()
 }

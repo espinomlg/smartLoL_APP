@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="regions">
+    <string-array name="lol_regions_values">
         <item>EUW</item>
         <item>NA</item>
         <item>EUNE</item>
@@ -12,5 +12,18 @@
         <item>RUS</item>
         <item>JAP</item>
         <item>KR</item>
+    </string-array>
+    <string-array name="lol_regions_keys">
+        <item>euw1</item>
+        <item>na1</item>
+        <item>eun1</item>
+        <item>br1</item>
+        <item>tr1</item>
+        <item>la2</item>
+        <item>la1</item>
+        <item>oc1</item>
+        <item>ru</item>
+        <item>jp1</item>
+        <item>kr</item>
     </string-array>
 </resources>

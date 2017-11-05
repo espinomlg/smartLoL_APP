@@ -2,6 +2,12 @@
     <!-- START APPLICATION STRINGS -->
     <string name="app_name">SmartLoL</string>
     <string name="btn_ok">OK</string><!--TODO CAMBIAR-->
+
+    <string-array name="masteries_trees">
+        <item name="masteries_ferocity">Ferocidad</item>
+        <item name="masteries_cunning">Astucia</item>
+        <item name="masteries_resolve">Valor</item>
+    </string-array>
     <!-- END APPLICATION STRINGS -->
 
     <!-- START LOL RELATED STRINGS -->
@@ -25,9 +31,9 @@
     <string name="networK_error_response_404_message">No se han encontrado datos</string>
     <!-- END NETWORK ERROR RESPONSE -->
 
-    <string-array name="maestrias">
-        <item name="masteries_ferocity">Ferocidad</item>
-        <item name="masteries_cunning">Astucia</item>
-        <item name="masteries_resolve">Valor</item>
-    </string-array>
+    <!--START DATA VALIDATION ERRORS -->
+    <string name="summname_err_title">Nombre no válido</string>
+    <string name="summname_err_message">El nombre introducido no es un nombre de invocador válido</string>
+    <!--END DATA VALIDATION ERRORS -->
+
 </resources>

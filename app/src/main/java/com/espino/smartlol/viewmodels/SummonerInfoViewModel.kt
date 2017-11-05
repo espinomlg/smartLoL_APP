@@ -10,4 +10,7 @@ import com.espino.smartlol.repositories.SummonerRepository
 class SummonerInfoViewModel : AbstractViewModel<Summoner>(){
     override val repository: SummonerRepository = SummonerRepository(dbInstance)
     override var data: LiveRealmData<Summoner>? = null
+
+    fun validateSummonerName(name: String): Boolean = name.length in 3..16
+
 }

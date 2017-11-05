@@ -12,9 +12,10 @@ class SummonerDao(override var dbInstance: Realm) : AbstractDao<Summoner>() {
 
     override val FRESH_TIMEOUT = 1 //day
 
-    override fun getData(identifier: String): LiveRealmData<Summoner> {
+    override fun getData(identifier: String, region: String?): LiveRealmData<Summoner> {
         return dbInstance.where(Summoner::class.java)
                 .equalTo("name", identifier, Case.INSENSITIVE)
+                .equalTo("region", region!!)
                 .findAllAsync()
                 .asLiveData()
     }
@@ -30,11 +31,12 @@ class SummonerDao(override var dbInstance: Realm) : AbstractDao<Summoner>() {
 
     }
 
-    override fun hasElement(identifier: String, dbInstance: Realm): Boolean {
+    override fun hasElement(identifier: String, dbInstance: Realm, region: String?): Boolean {
         var isValidData = false
 
         val summoner: Summoner? = dbInstance.where(Summoner::class.java)
                 .equalTo("name", identifier, Case.INSENSITIVE)
+                .equalTo("region", region!!)
                 .findFirst()
 
         if (summoner != null) {

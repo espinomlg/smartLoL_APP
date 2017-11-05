@@ -15,9 +15,9 @@ abstract class AbstractViewModel<T: RealmObject> : ViewModel(){
     protected abstract val repository: AbstractRepository<T>
     abstract var data: LiveRealmData<T>?
 
-    fun init(identifier: String){
+    fun init(identifier: String, region: String? = null){
         if(this.data == null)
-            this.data = repository.getData(identifier)
+            this.data = repository.getData(identifier, region)
         if(this.networkError == null)
             networkError = repository.networkError
     }

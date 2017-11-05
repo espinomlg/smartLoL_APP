@@ -11,14 +11,16 @@ import java.io.IOException
 class SummonerRepository(dbInstance: Realm): AbstractRepository<Summoner>() {
     override val dao: SummonerDao = dbInstance.summonerDao()
 
-     override fun refreshData(identifier: String): NetworkErrorResponse?{
+     override fun refreshData(identifier: String, region: String?): NetworkErrorResponse?{
         var errorResponse: NetworkErrorResponse? = null
         Realm.getDefaultInstance().use {
-            if (!dao.hasElement(identifier, it)) {
+            if (!dao.hasElement(identifier, it, region!!)) {
                 try {
-                    val response = service.getSummoner(identifier, "euw1", "2").execute()
+                    val response = service.getSummoner(identifier, region, "2").execute()
                     if (response.code() == 200) {
-                        dao.save(response.body()!!, it)
+                        val summoner: Summoner = response.body()!!
+                        summoner.region = region
+                        dao.save(summoner, it)
                     } else {
                         errorResponse = NetworkErrorResponse(response.code(), response.headers(), response.errorBody()?.string())
                     }
