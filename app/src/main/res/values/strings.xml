@@ -38,6 +38,7 @@
 
     <!-- START PREFERENCES STRINGS -->
     <string name="preferences_language">Idioma</string>
+    <string name="action_search_champion">Busca un campeón</string>
     <string-array name="preferences_languages_entryValues">
         <item>1</item>
         <item>2</item>

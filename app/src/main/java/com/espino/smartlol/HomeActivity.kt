@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewCompat
 import android.util.Log
 import android.view.MenuItem
+import com.espino.smartlol.fragments.ChampionInfoFragment
 import com.espino.smartlol.fragments.ChampionListFragment
 import com.espino.smartlol.fragments.CurrentGameFragment
 import com.espino.smartlol.fragments.SummonerInfoFragment
@@ -14,11 +15,11 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.application_toolbar.*
 
 
-class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback {
-
+class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback, ChampionListFragment.IFragmentCallback {
     private var currentGameFragment: CurrentGameFragment? = null
     private var summInfoFragment: SummonerInfoFragment? = null
     private var championListFragment: ChampionListFragment? = null
+    private var championInfoFragment: ChampionInfoFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +72,7 @@ class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback
         return true
     }
 
-    //TODO transaction doesn't work
+    //TODO animation doesn't work
     override fun loadData(args: Bundle) {
         ViewCompat.setTransitionName(findViewById(R.id.linear_search), "layout_search")
         ViewCompat.setTransitionName(findViewById(R.id.summinfo_txi_search), "txi_search")
@@ -85,6 +86,14 @@ class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback
                 .addSharedElement(findViewById(R.id.summinfo_txi_search), "txi_search")
                 .addSharedElement(findViewById(R.id.summinfo_btn_search), "btn_search")
                 .replace(R.id.home_container, summInfoFragment, SummonerInfoFragment.TAG)
+                .commit()
+    }
+
+    override fun loadChampionData(args: Bundle) {
+        championInfoFragment = ChampionInfoFragment.newinstance(args)
+
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.home_container, championInfoFragment, ChampionInfoFragment.TAG)
                 .commit()
     }
 

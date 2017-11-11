@@ -1,5 +1,6 @@
 package com.espino.smartlol.webservice
 
+import com.espino.smartlol.models.Champion
 import com.espino.smartlol.models.ChampionList
 import com.espino.smartlol.models.ChampionListItem
 import com.espino.smartlol.models.Summoner
@@ -18,6 +19,9 @@ interface ISmartLolService {
     @GET("champions/")
     fun getAllChampions(): Call<ChampionList>
 
+    @GET("champion/{id}")
+    fun getChampion(@Path("id") championId: Int, @Query("language") language: Int): Call<Champion>
+
     /*
     @GET("recentgames/{account_id}")
     fun getNormalGames(@Path("account_id") accountId: Int): Call<List<Game>>
@@ -27,12 +31,7 @@ interface ISmartLolService {
 
     @GET("currentgame/{summoner_id}")
     fun getCurrentGame(@Path("summoner_id") summonerId: Int): Call<CurrentGame>
-
-    @GET("champions/")
-    fun getAllChampions(): Call<List<Champion>>
-
-    @GET("champion/{id}")
-    fun getChampion(@Path("id") championId: Int): Call<Champion>*/
+    */
 
     companion object {
         fun create() : ISmartLolService = Retrofit.Builder()

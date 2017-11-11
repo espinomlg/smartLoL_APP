@@ -13,7 +13,7 @@ abstract class AbstractViewModel<T: RealmObject> : ViewModel(){
     protected val dbInstance: Realm = Realm.getDefaultInstance()
     var networkError: MutableLiveData<NetworkErrorResponse>? = null
     protected abstract val repository: AbstractRepository<T>
-    abstract var data: LiveRealmData<T>?
+    var data: LiveRealmData<T>? = null
 
     fun init(identifier: String? = null, region: String? = null, language: Int = 0){
         if(this.data == null)

@@ -6,6 +6,7 @@ import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import com.espino.smartlol.R
+import com.espino.smartlol.daos.ChampionDao
 import com.espino.smartlol.daos.ChampionListDao
 import com.espino.smartlol.daos.SummonerDao
 import com.espino.smartlol.webservice.NetworkErrorResponse
@@ -17,6 +18,7 @@ import java.util.*
 
 fun Realm.summonerDao() = SummonerDao(this)
 fun Realm.championListDao() = ChampionListDao(this)
+fun Realm.championDao() = ChampionDao(this)
 
 fun<T: RealmObject> RealmResults<T>.asLiveData() = LiveRealmData(this)
 
@@ -24,6 +26,10 @@ fun Fragment.showNetworkErrorDialog(errorResponse: NetworkErrorResponse){
     var title = ""
     var message = ""
     when(errorResponse.statusCode){
+        400->{
+            title = "BAD REQUEST"
+            message = "LA URL O LOS QUERY PARAMS ESTÁN MAL"
+        }
         403->{
             title = context.resources.getString(R.string.networK_error_response_403_title)
             message = context.resources.getString(R.string.networK_error_response_403_message)

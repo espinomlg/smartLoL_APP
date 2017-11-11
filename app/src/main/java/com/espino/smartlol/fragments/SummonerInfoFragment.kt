@@ -127,6 +127,7 @@ class SummonerInfoFragment : Fragment(){
         summinfo_txv_defeats.text = String.format(resources.getString(R.string.defeats),  summoner?.leagues?.get(0)?.losses.toString())
         summinfo_txv_summfound.text = summoner?.name
         summinfo_txv_victories.text = String.format(resources.getString(R.string.victories), summoner?.leagues?.get(0)?.wins.toString())
+        //todo load image based on summoner league
         summinfo_img_league.setImageDrawable(resources.getDrawable(R.drawable.diamond_v))
 
         topchampsAdapter.topChampions = summoner?.top_champions

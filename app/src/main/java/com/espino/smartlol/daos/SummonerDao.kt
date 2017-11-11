@@ -42,7 +42,7 @@ class SummonerDao(override var dbInstance: Realm) : AbstractDao<Summoner>() {
         if (summoner != null) {
             val instant = Calendar.getInstance()
             val expirationTime = Calendar.getInstance()
-            expirationTime.time = Date(summoner.validUntil)
+            expirationTime.timeInMillis = summoner.validUntil
 
             if (instant < expirationTime)
                 isValidData = true

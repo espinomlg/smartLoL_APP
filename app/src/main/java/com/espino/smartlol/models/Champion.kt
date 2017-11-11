@@ -1,11 +1,12 @@
 package com.espino.smartlol.models
 
-import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 
 
 open class Champion(
+        @PrimaryKey
         var id: Int = 0,
         var name: String = "",
         var title: String = "",
@@ -13,8 +14,9 @@ open class Champion(
         var info: ChampionInfo? = null,
         var passive: ChampionPassive? = null,
         var spells: RealmList<ChampionSpell> = RealmList(),
-       // var rols: RealmList<String> = RealmList(),
-        var skins: RealmList<ChampionSkin> = RealmList()
-        //var allyTips: RealmList<String> = RealmList(),
-        //var enemyTips: RealmList<String> = RealmList()
+        var skins: RealmList<ChampionSkin> = RealmList(),
+        var rols: RealmList<String> = RealmList(),
+        var allyTips: RealmList<String> = RealmList(),
+        var enemyTips: RealmList<String> = RealmList(),
+        var validUntil: Long = 0
 ) : RealmObject()

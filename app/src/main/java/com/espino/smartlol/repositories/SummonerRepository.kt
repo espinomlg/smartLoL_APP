@@ -14,7 +14,7 @@ class SummonerRepository(dbInstance: Realm): AbstractRepository<Summoner>() {
      override fun refreshData(identifier: String?, region: String?, language: Int): NetworkErrorResponse?{
         var errorResponse: NetworkErrorResponse? = null
         Realm.getDefaultInstance().use {
-            if (!dao.hasElement(it, identifier, region!!)) {
+            if (!dao.hasElement(it, identifier = identifier, region = region!!)) {
                 try {
                     val response = service.getSummoner(identifier!!, region, language).execute()
                     if (response.code() == 200) {

@@ -6,7 +6,6 @@ import com.espino.smartlol.repositories.ChampionListRepository
 import com.espino.smartlol.utils.LiveRealmData
 
 
-class ChampionListViewModel() : AbstractViewModel<ChampionList>(){
+class ChampionListViewModel : AbstractViewModel<ChampionList>(){
     override val repository: AbstractRepository<ChampionList> = ChampionListRepository(dbInstance)
-    override var data: LiveRealmData<ChampionList>? = null
 }
