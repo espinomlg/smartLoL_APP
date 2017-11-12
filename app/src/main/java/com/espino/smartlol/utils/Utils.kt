@@ -2,9 +2,12 @@
 package com.espino.smartlol.utils
 
 import android.content.SharedPreferences
+import android.databinding.BindingAdapter
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.widget.ImageView
+import com.espino.smartlol.GlideApp
 import com.espino.smartlol.R
 import com.espino.smartlol.daos.ChampionDao
 import com.espino.smartlol.daos.ChampionListDao
@@ -81,3 +84,14 @@ private fun getLanguageId() : Int{
         else -> 1
     }
 }
+
+@BindingAdapter("imageUrl")
+fun loadImage(view: ImageView, url: String?){
+    GlideApp.with(view.context)
+            .load(url)
+            .placeholder(R.mipmap.ic_launcher)
+            .error(R.mipmap.ic_launcher)
+            .into(view)
+}
+
+//fun loadLeagueImage(view: ImageView, r)

@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="topchampion" type="com.espino.smartlol.models.SummonerTopChampions"/>
+    </data>
+
+
+<android.support.v7.widget.CardView
     app:cardCornerRadius="4dp"
     android:layout_width="match_parent"
     android:layout_height="200dp">
@@ -11,7 +18,8 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:id="@+id/itembestchampion_img_champion"
-        tools:src="@drawable/diana_11"/>
+        tools:src="@drawable/diana_11"
+        app:imageUrl="@{topchampion.image}"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,7 +36,7 @@
             android:paddingBottom="5dp"
             android:background="@color/backgroungtext_cardview"
             android:id="@+id/itembestchampion_txv_title"
-            tools:text="La embaucadora"/>
+            android:text="@{topchampion.title}"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -41,7 +49,7 @@
             android:paddingBottom="5dp"
             android:background="@color/backgroungtext_cardview"
             android:id="@+id/itembestchampion_txv_name"
-            tools:text="LeBlanc"/>
+            android:text="@{topchampion.name}"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,7 +63,7 @@
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
             android:id="@+id/itembestchampion_txv_points"
-            android:text="@string/champion_mastery_points"/>
+            android:text="@{@string/champion_mastery_points(topchampion.points)}"/>
 
         <ImageView
             android:layout_width="70dp"
@@ -68,3 +76,5 @@
 
 
 </android.support.v7.widget.CardView>
+
+</layout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.espino.smartlol.R
 import com.espino.smartlol.models.Champion
 import com.espino.smartlol.utils.getLanguage
+import com.espino.smartlol.utils.showNetworkErrorDialog
 import com.espino.smartlol.viewmodels.ChampionViewModel
 import kotlinx.android.synthetic.main.fragment_championinfo.*
 
@@ -43,6 +44,12 @@ class ChampionInfoFragment : Fragment(){
                 champinfo_progressbar.visibility = View.GONE
                 bindData(it.first())
                 changeContentVisibility(View.VISIBLE)
+            }
+        })
+        viewModel.networkError?.observe(this@ChampionInfoFragment, Observer {
+            if(it != null){
+                champinfo_progressbar.visibility = View.GONE
+                showNetworkErrorDialog(it)
             }
         })
     }

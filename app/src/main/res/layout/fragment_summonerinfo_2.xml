@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        <variable name="summoner" type="com.espino.smartlol.models.Summoner"/>
+    </data>
+    
+<RelativeLayout
     android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -67,7 +73,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
         android:visibility="invisible"
-        android:id="@+id/summinfo_img_profileicon" />
+        android:id="@+id/summinfo_img_profileicon"
+        app:imageUrl="@{summoner.icon}"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,7 +86,8 @@
         android:layout_marginTop="15dp"
         android:visibility="invisible"
         android:id="@+id/summinfo_txv_summfound"
-        tools:text="EspinoKiller"/>
+        android:text="@{summoner.name}"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,7 +100,8 @@
         android:layout_marginEnd="5dp"
         android:visibility="invisible"
         android:id="@+id/summinfo_txv_victories"
-        tools:text="Victorias: 100"/>
+        />
+    <!--android:text="@{@string/victories(summoner.leagues.wins)}"-->
 
     <ImageView
         android:layout_width="50dp"
@@ -105,7 +114,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
         android:visibility="invisible"
-        android:id="@+id/summinfo_img_league" />
+        android:id="@+id/summinfo_img_league"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -116,7 +126,8 @@
         android:layout_marginEnd="5dp"
         android:id="@+id/summinfo_txv_defeats"
         android:visibility="invisible"
-        tools:text="Derrotas: 0"/>
+        />
+       <!-- android:text="@{@string/defeats(summoner.leagues.losses)}"-->
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -126,3 +137,5 @@
         android:id="@+id/summinfo_rcv_topchamps"/>
 
 </RelativeLayout>
+
+</layout>

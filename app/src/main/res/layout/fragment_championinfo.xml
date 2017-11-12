@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!--        android:visibility="invisible" -->
     <TextView
         tools:text="titulo"
         android:layout_width="wrap_content"
@@ -19,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.12"
-        android:visibility="invisible"
         android:id="@+id/champinfo_txv_title"
         />
 
@@ -37,7 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:visibility="invisible"
         android:id="@+id/champinfo_txv_name"
         />
 
@@ -53,5 +51,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
         android:id="@+id/champinfo_progressbar"/>
 </android.support.constraint.ConstraintLayout>

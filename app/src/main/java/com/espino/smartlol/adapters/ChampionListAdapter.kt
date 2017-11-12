@@ -1,5 +1,6 @@
 package com.espino.smartlol.adapters
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.util.SortedList
 import android.support.v7.widget.RecyclerView
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.espino.smartlol.R
+import com.espino.smartlol.databinding.ListitemChampionBinding
 import com.espino.smartlol.fragments.ChampionListFragment
 import com.espino.smartlol.models.ChampionListItem
 import kotlinx.android.synthetic.main.listitem_champion.view.*
@@ -63,9 +65,10 @@ class ChampionListAdapter(val listener: ChampionListFragment.IFragmentCallback) 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val v: View = LayoutInflater.from(parent?.context).inflate(R.layout.listitem_champion, parent, false)
+        val inflater = LayoutInflater.from(parent?.context)
+        val item: ListitemChampionBinding = DataBindingUtil.inflate(inflater, R.layout.listitem_champion, parent, false)
 
-        return ViewHolder(v)
+        return ViewHolder(item)
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
@@ -74,7 +77,7 @@ class ChampionListAdapter(val listener: ChampionListFragment.IFragmentCallback) 
 
     override fun getItemCount(): Int = sortedList.size()
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(private val item: ListitemChampionBinding) : RecyclerView.ViewHolder(item.root) {
 
         init {
             itemView.setOnClickListener {
@@ -85,17 +88,8 @@ class ChampionListAdapter(val listener: ChampionListFragment.IFragmentCallback) 
         }
 
         fun bind(champion: ChampionListItem?) = with(itemView) {
-            championitem_txv.text = champion?.name
-            Glide.with(context)
-                    .load(champion?.image)
-                    .into(championitem_img)
-
-            /*todo aplicar esto a todoas las llamadas a GLIDE usando un método de extension
-        Glide.with(holder.logo.getContext())
-       .load(standingObjectItems.get(position).getImgId()).diskCacheStrategy(DiskCacheStrategy.ALL)
-       .error(R.mipmap.ic_launcher)
-       .placeholder(R.mipmap.ic_launcher)
-       .into(holder.logo);*/
+            item.champion = champion
+            item.executePendingBindings()
         }
     }
 }
