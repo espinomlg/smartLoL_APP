@@ -2,22 +2,25 @@ package com.espino.smartlol.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.espino.smartlol.HomeActivity
 import com.espino.smartlol.R
-import com.espino.smartlol.models.Champion
+import com.espino.smartlol.databinding.FragmentChampionInfoBinding
 import com.espino.smartlol.utils.getLanguage
 import com.espino.smartlol.utils.showNetworkErrorDialog
 import com.espino.smartlol.viewmodels.ChampionViewModel
-import kotlinx.android.synthetic.main.fragment_championinfo.*
+import kotlinx.android.synthetic.main.fragment_champion_info.*
 
 
 class ChampionInfoFragment : Fragment(){
 
     private lateinit var viewModel: ChampionViewModel
+    private lateinit var binder: FragmentChampionInfoBinding
 
     companion object {
         val TAG = "champion_info"
@@ -31,36 +34,23 @@ class ChampionInfoFragment : Fragment(){
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_championinfo, container, false)
+        binder = DataBindingUtil.inflate(inflater, R.layout.fragment_champion_info, container, false)
+
+        return binder.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this@ChampionInfoFragment).get(ChampionViewModel::class.java)
+        val homeActivity = activity as HomeActivity
+        viewModel = ViewModelProviders.of(homeActivity.getChampionFragment()!!).get(ChampionViewModel::class.java)
 
-        viewModel.init(arguments.getInt(ChampionListFragment.CHAMPION_ID).toString(), language = getLanguage())
         viewModel.data?.observe(this@ChampionInfoFragment, Observer {
             if(it?.count() == 1){
-                champinfo_progressbar.visibility = View.GONE
-                bindData(it.first())
+                binder.champion = it.first()
                 changeContentVisibility(View.VISIBLE)
             }
         })
-        viewModel.networkError?.observe(this@ChampionInfoFragment, Observer {
-            if(it != null){
-                champinfo_progressbar.visibility = View.GONE
-                showNetworkErrorDialog(it)
-            }
-        })
-    }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun bindData(champion: Champion?){
-        champinfo_txv_name.text = champion?.name
-        champinfo_txv_title.text = champion?.title
     }
 
     private fun changeContentVisibility(visibility: Int){

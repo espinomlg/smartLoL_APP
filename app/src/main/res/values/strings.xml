@@ -8,6 +8,7 @@
         <item name="masteries_cunning">Astucia</item>
         <item name="masteries_resolve">Valor</item>
     </string-array>
+    <string name="action_search_champion">Busca un campeón</string>
     <!-- END APPLICATION STRINGS -->
 
     <!-- START LOL RELATED STRINGS -->
@@ -20,6 +21,12 @@
     <string name="champion_mastery_points">Puntos de maestria: %s</string>
     <string name="victories">Victorias: %s</string>
     <string name="defeats">Derrotas: %s</string>
+
+    <string-array name="champion_tabs">
+        <item name="champion_info">Info</item>
+        <item name="champion_abilities">Habilidades</item>
+        <item name="champion_skins">Skins</item>
+    </string-array>
     <!-- END LOL RELATED STRINGS -->
 
     <!-- START NETWORK ERROR RESPONSE -->
@@ -38,7 +45,6 @@
 
     <!-- START PREFERENCES STRINGS -->
     <string name="preferences_language">Idioma</string>
-    <string name="action_search_champion">Busca un campeón</string>
     <string-array name="preferences_languages_entryValues">
         <item>1</item>
         <item>2</item>

@@ -27,6 +27,8 @@
                 android:visibility="gone"
                 app:tabTextColor="@color/softWhite"
                 app:tabSelectedTextColor="@color/colorAccent"
+                app:tabMode="fixed"
+                app:tabGravity="center"
                 android:id="@+id/app_tablayout"/>
 
         </android.support.design.widget.AppBarLayout>

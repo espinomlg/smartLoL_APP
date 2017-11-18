@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="champion" type="com.espino.smartlol.models.Champion"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/champinfo_img_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                tools:src="@mipmap/ic_launcher"
+                app:imageUrl="@{champion.image}"/>
+
+            <TextView
+                android:id="@+id/champinfo_txv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/champinfo_img_icon"
+                android:layout_centerHorizontal="true"
+                tools:text="nombre"
+                android:text="@{champion.name}"/>
+
+            <TextView
+                android:id="@+id/champinfo_txv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/champinfo_txv_name"
+                tools:text="titulo"
+                android:text="@{champion.title}"/>
+
+            <!-- Custom Images to put with rol text -->
+            <LinearLayout
+                android:id="@+id/champinfo_linear_rols"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/champinfo_txv_title"
+                android:layout_centerHorizontal="true"
+                app:entries="@{champion.rols}"
+                app:layout="@{@layout/item_textitem}"/>
+
+            <TextView
+                android:id="@+id/champinfo_txv_attack"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/champinfo_linear_rols"
+                android:layout_alignParentStart="true"
+                android:text="Ataque "/>
+
+            <TextView
+                android:id="@+id/champinfo_txv_defense"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/champinfo_txv_attack"
+                android:layout_alignParentStart="true"
+                android:text="Defensa "/>
+
+            <TextView
+                android:id="@+id/champinfo_txv_magic"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/champinfo_txv_defense"
+                android:layout_alignParentStart="true"
+                android:text="Magia "/>
+
+            <TextView
+                android:id="@+id/champinfo_txv_difficulty"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/champinfo_txv_magic"
+                android:layout_alignParentStart="true"
+                android:text="Difficultad "/>
+
+            <ProgressBar
+                android:id="@+id/champinfo_progressbar_attack"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@id/champinfo_txv_attack"
+                android:layout_alignBottom="@id/champinfo_txv_attack"
+                android:layout_alignEnd="@+id/champinfo_linear_rols"
+                android:progressDrawable="@drawable/progresscolor_attack"
+                android:max="10"
+                android:secondaryProgress="10"
+                android:progress="@{champion.info.attack}" />
+
+            <ProgressBar
+                android:id="@+id/champinfo_progressbar_defense"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@id/champinfo_txv_defense"
+                android:layout_alignBottom="@id/champinfo_txv_defense"
+                android:layout_alignEnd="@+id/champinfo_linear_rols"
+                android:progressDrawable="@drawable/progresscolor_defense"
+                android:max="10"
+                android:secondaryProgress="10"
+                android:progress="@{champion.info.defense}" />
+
+            <ProgressBar
+                android:id="@+id/champinfo_progressbar_magic"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@id/champinfo_txv_magic"
+                android:layout_alignBottom="@id/champinfo_txv_magic"
+                android:layout_alignEnd="@+id/champinfo_linear_rols"
+                android:progressDrawable="@drawable/progresscolor_magic"
+                android:max="10"
+                android:secondaryProgress="10"
+                android:progress="@{champion.info.magic}" />
+
+            <ProgressBar
+                android:id="@+id/champinfo_progressbar_difficulty"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@id/champinfo_txv_difficulty"
+                android:layout_alignBottom="@id/champinfo_txv_difficulty"
+                android:layout_alignEnd="@+id/champinfo_linear_rols"
+                android:progressDrawable="@drawable/progresscolor_difficulty"
+                android:max="10"
+                android:secondaryProgress="10"
+                android:progress="@{champion.info.difficulty}" />
+
+            <View
+                android:id="@+id/champinfo_view_separator"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/champinfo_txv_difficulty"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/champinfo_txv_allytips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/champinfo_txv_difficulty"
+                android:layout_toStartOf="@id/champinfo_view_separator"
+                android:gravity="center_horizontal"
+                android:text="Consejos para aliados"/>
+
+            <TextView
+                android:id="@+id/champinfo_txv_enemytips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/champinfo_txv_difficulty"
+                android:layout_toEndOf="@id/champinfo_view_separator"
+                android:gravity="center_horizontal"
+                android:text="Consejos para enemigos"/>
+
+            <LinearLayout
+                android:id="@+id/champinfo_linear_allytips"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_below="@id/champinfo_txv_allytips"
+                android:layout_toStartOf="@id/champinfo_view_separator"
+                app:entries="@{champion.ally_tips}"
+                app:layout="@{@layout/item_textitem}"/>
+
+            <LinearLayout
+                android:id="@+id/champinfo_linear_enemytips"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_below="@id/champinfo_txv_enemytips"
+                android:layout_toEndOf="@id/champinfo_view_separator"
+                app:entries="@{champion.enemy_tips}"
+                app:layout="@{@layout/item_textitem}"/>
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</layout>

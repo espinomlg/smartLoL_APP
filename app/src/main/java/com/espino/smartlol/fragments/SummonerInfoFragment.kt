@@ -18,13 +18,15 @@ import com.espino.smartlol.R
 import com.espino.smartlol.adapters.TopChampionsAdapter
 import com.espino.smartlol.databinding.FragmentSummonerinfo2Binding
 import com.espino.smartlol.models.Summoner
+import com.espino.smartlol.models.SummonerLeague
 import com.espino.smartlol.utils.getLanguage
 import com.espino.smartlol.utils.showActionlessDialog
 import com.espino.smartlol.utils.showNetworkErrorDialog
 import com.espino.smartlol.viewmodels.SummonerInfoViewModel
+import io.realm.RealmList
 import kotlinx.android.synthetic.main.fragment_summonerinfo_2.*
 
-//todo control orientation or modify layout and add recycler view for last matches and leagues
+//todo control orientation or modify layout and add recycler view for last matches and leagues. if there are 3 leagues content overflows screen
 class SummonerInfoFragment : Fragment(){
 
     interface IFragmentCallback{
@@ -83,8 +85,9 @@ class SummonerInfoFragment : Fragment(){
             viewmodel.data?.observe(this@SummonerInfoFragment, Observer {
                 if(it?.count() == 1){
                     summinfo_progressbar.visibility = View.GONE
-                    //bindData(it.first())
                     binder.summoner = it.first()
+                    if(it.first()?.leagues?.size == 0)
+                        summinfo_txv_noleague.visibility = View.VISIBLE
                     topchampsAdapter.topChampions = it.first()?.top_champions
                     changeContentVisibility(View.VISIBLE)
                 }
@@ -128,7 +131,6 @@ class SummonerInfoFragment : Fragment(){
         if(savedInstanceState != null){
             summinfo_txi_search.editText?.setText(savedInstanceState.getString(TXI_STATE))
         }
-        //todo control text input layout cannot have \n
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -137,28 +139,13 @@ class SummonerInfoFragment : Fragment(){
         outState?.putString(TXI_STATE, summinfo_txi_search.editText?.text.toString())
     }
 
-    private fun bindData(summoner: Summoner?){
-        GlideApp.with(context).load(summoner?.icon).into(summinfo_img_profileicon)
-        summinfo_txv_defeats.text = String.format(resources.getString(R.string.defeats),  summoner?.leagues?.get(0)?.losses.toString())
-        summinfo_txv_summfound.text = summoner?.name
-        summinfo_txv_victories.text = String.format(resources.getString(R.string.victories), summoner?.leagues?.get(0)?.wins.toString())
-        //todo load image based on summoner league
-        summinfo_img_league.setImageDrawable(resources.getDrawable(R.drawable.diamond_v))
-
-
-        topchampsAdapter.topChampions = summoner?.top_champions
-        summinfo_rcv_topchamps.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        summinfo_rcv_topchamps.adapter = topchampsAdapter
-    }
-
     private fun changeContentVisibility(visibility: Int){
         summinfo_img_profileicon.visibility = visibility
-        summinfo_txv_defeats.visibility = visibility
         summinfo_txv_summfound.visibility = visibility
-        summinfo_txv_victories.visibility = visibility
-        summinfo_img_league.visibility = visibility
-
         summinfo_rcv_topchamps.visibility = visibility
     }
+
+
+
 
 }

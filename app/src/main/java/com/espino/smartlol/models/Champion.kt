@@ -16,7 +16,7 @@ open class Champion(
         var spells: RealmList<ChampionSpell> = RealmList(),
         var skins: RealmList<ChampionSkin> = RealmList(),
         var rols: RealmList<String> = RealmList(),
-        var allyTips: RealmList<String> = RealmList(),
-        var enemyTips: RealmList<String> = RealmList(),
+        var ally_tips: RealmList<String> = RealmList(),
+        var enemy_tips: RealmList<String> = RealmList(),
         var validUntil: Long = 0
 ) : RealmObject()

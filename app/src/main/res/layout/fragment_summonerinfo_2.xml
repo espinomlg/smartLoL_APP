@@ -18,13 +18,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="visible"
+        tools:visibility="gone"
         android:id="@+id/summinfo_progressbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:id="@+id/linear_search">
 
@@ -67,73 +67,55 @@
         android:layout_height="50dp"
         android:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_below="@id/linear_search"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_centerHorizontal="true"
         android:visibility="invisible"
         android:id="@+id/summinfo_img_profileicon"
+        tools:visibility="visible"
         app:imageUrl="@{summoner.icon}"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linear_search"
-        android:layout_toEndOf="@id/summinfo_img_profileicon"
-        android:layout_toRightOf="@id/summinfo_img_profileicon"
-        android:layout_alignBaseline="@id/summinfo_img_profileicon"
-        android:layout_marginTop="15dp"
+        android:layout_below="@id/summinfo_img_profileicon"
+        android:layout_centerHorizontal="true"
         android:visibility="invisible"
         android:id="@+id/summinfo_txv_summfound"
+        tools:visibility="visible"
+        tools:text="EspinoKiller"
         android:text="@{summoner.name}"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linear_search"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginEnd="5dp"
-        android:visibility="invisible"
-        android:id="@+id/summinfo_txv_victories"
-        />
-    <!--android:text="@{@string/victories(summoner.leagues.wins)}"-->
+        android:layout_below="@id/summinfo_txv_summfound"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:animateLayoutChanges="true"
+        app:entries="@{summoner.leagues}"
+        app:layout="@{@layout/item_league}"
+        android:id="@+id/linear_leagues">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/diamond_v"
-        android:layout_toLeftOf="@id/summinfo_txv_victories"
-        android:layout_toStartOf="@id/summinfo_txv_victories"
-        android:layout_below="@id/linear_search"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="invisible"
-        android:id="@+id/summinfo_img_league"
-        />
+        <!-- todo replace with custom image -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Unranked"
+            android:visibility="gone"
+            android:id="@+id/summinfo_txv_noleague"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/summinfo_txv_victories"
-        android:layout_toEndOf="@id/summinfo_img_league"
-        android:layout_toRightOf="@id/summinfo_img_league"
-        android:layout_marginEnd="5dp"
-        android:id="@+id/summinfo_txv_defeats"
-        android:visibility="invisible"
-        />
-       <!-- android:text="@{@string/defeats(summoner.leagues.losses)}"-->
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="invisible"
+        tools:visibility="visible"
         android:id="@+id/summinfo_rcv_topchamps"/>
 
 </RelativeLayout>

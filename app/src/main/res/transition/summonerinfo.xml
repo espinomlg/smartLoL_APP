@@ -19,9 +19,6 @@
         <targets>
             <target android:targetId="@id/summinfo_img_profileicon"/>
             <target android:targetId="@id/summinfo_txv_summfound"/>
-            <target android:targetId="@id/summinfo_txv_victories"/>
-            <target android:targetId="@id/summinfo_img_league"/>
-            <target android:targetId="@id/summinfo_txv_defeats"/>
             <target android:targetId="@id/summinfo_rcv_topchamps"/>
         </targets>
 

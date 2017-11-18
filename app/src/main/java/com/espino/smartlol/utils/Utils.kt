@@ -1,12 +1,18 @@
 @file:JvmName("Utils")
 package com.espino.smartlol.utils
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.databinding.BindingAdapter
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
+import com.espino.smartlol.BR
 import com.espino.smartlol.GlideApp
 import com.espino.smartlol.R
 import com.espino.smartlol.daos.ChampionDao
@@ -94,4 +100,15 @@ fun loadImage(view: ImageView, url: String?){
             .into(view)
 }
 
-//fun loadLeagueImage(view: ImageView, r)
+@BindingAdapter("entries", "layout")
+fun <T> loadListData(viewGroup: ViewGroup, entries: List<T>?, layoutId: Int){
+
+    if(entries != null){
+        viewGroup.removeAllViews()
+        val infalter = viewGroup.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        for(entry in entries){
+            val binding: ViewDataBinding = DataBindingUtil.inflate(infalter, layoutId, viewGroup, true)
+            binding.setVariable(BR.data, entry)
+        }
+    }
+}

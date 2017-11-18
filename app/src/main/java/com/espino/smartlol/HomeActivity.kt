@@ -2,15 +2,13 @@ package com.espino.smartlol
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.transition.ChangeBounds
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewCompat
 import android.util.Log
 import android.view.MenuItem
-import com.espino.smartlol.fragments.ChampionInfoFragment
-import com.espino.smartlol.fragments.ChampionListFragment
-import com.espino.smartlol.fragments.CurrentGameFragment
-import com.espino.smartlol.fragments.SummonerInfoFragment
+import com.espino.smartlol.fragments.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.application_toolbar.*
 
@@ -19,7 +17,7 @@ class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback
     private var currentGameFragment: CurrentGameFragment? = null
     private var summInfoFragment: SummonerInfoFragment? = null
     private var championListFragment: ChampionListFragment? = null
-    private var championInfoFragment: ChampionInfoFragment? = null
+    private var championFragment: ChampionFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,13 +88,14 @@ class HomeActivity : AppCompatActivity(), SummonerInfoFragment.IFragmentCallback
     }
 
     override fun loadChampionData(args: Bundle) {
-        championInfoFragment = ChampionInfoFragment.newinstance(args)
+        championFragment = ChampionFragment.newInstance(args)
 
         supportFragmentManager.beginTransaction()
-                .replace(R.id.home_container, championInfoFragment, ChampionInfoFragment.TAG)
+                .replace(R.id.home_container, championFragment, ChampionFragment.TAG)
+                .addToBackStack(ChampionInfoFragment.TAG)
                 .commit()
     }
 
-
+    fun getChampionFragment() : Fragment? = championFragment
 
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="data" type="com.espino.smartlol.models.SummonerLeague"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            tools:text="league"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{data.league}"
+            android:id="@+id/summleague_txv_league"/>
+
+        <ImageView
+            android:id="@+id/summleague_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/summleague_txv_league"
+            app:srcCompat="@drawable/diamond_v" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/summleague_img"
+            app:layout_constraintStart_toEndOf="@+id/summleague_img"
+            app:layout_constraintTop_toTopOf="@+id/summleague_img"
+            app:layout_constraintVertical_bias="0.161"
+            tools:text="@string/victories"
+            android:text="@{@string/victories(data.wins)}"
+            android:id="@+id/summleague_txv_victories"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/summleague_img"
+            app:layout_constraintStart_toEndOf="@+id/summleague_img"
+            app:layout_constraintTop_toTopOf="@+id/summleague_img"
+            app:layout_constraintVertical_bias="0.935"
+            tools:text="@string/defeats"
+            android:text="@{@string/defeats(data.losses)}"
+            android:id="@+id/summleague_txv_defeats"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>

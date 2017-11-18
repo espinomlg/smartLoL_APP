@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="data" type="com.espino.smartlol.models.ChampionSpell"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/spellitem_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            tools:src="@mipmap/ic_launcher"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            app:imageUrl="@{data.image}"/>
+
+        <TextView
+            android:id="@+id/spellItem_txv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spellitem_img"
+            android:layout_centerHorizontal="true"
+            tools:text="Name"
+            android:text="@{data.name}" />
+
+        <TextView
+            android:id="@+id/spellItem_txv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spellItem_txv_name"
+            android:layout_centerHorizontal="true"
+            tools:text="Description"
+            android:text="@{data.description}" />
+
+    </RelativeLayout>
+</layout>
